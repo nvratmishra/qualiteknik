@@ -38,6 +38,15 @@ export default function WorkPage() {
                   <div>
                     <p className="max-w-2xl text-base leading-relaxed text-ink-soft">{w.body}</p>
 
+                    {/* Where a method comes from published research, credit it —
+                        implying someone else's paper is ours would be exactly
+                        the kind of unearned claim this firm sells against. */}
+                    {"credit" in w && w.credit && (
+                      <p className="mt-5 max-w-2xl border-l border-rule pl-4 text-xs leading-relaxed text-ink-faint">
+                        {w.credit}
+                      </p>
+                    )}
+
                     <dl className="mt-8 grid gap-px border border-rule bg-rule sm:grid-cols-3">
                       {[
                         ["Focus", w.focus],

@@ -9,10 +9,11 @@ export const FIRM = {
   legal: "Qualiteknik Inc.",
   tagline: "AI systems built with engineering rigor, not just prototypes.",
   blurb:
-    "AI & ML engineering built on quality-first evaluation and delivery. Based in Toronto, Canada.",
-  city: "Toronto, Canada",
-  reach: "We work with teams across North America, in person and remote.",
+    "AI & ML engineering built on quality-first evaluation and delivery. Based in Toronto and Lucknow.",
+  city: "Toronto, Canada · Lucknow, India",
+  reach: "We work with teams across North America and India, in person and remote.",
   replyTime: "We typically respond within two business days.",
+  email: "info@qualiteknik.online",
 } as const;
 
 export const NAV = [
@@ -28,16 +29,19 @@ export const HERO = {
   pillars: [
     { label: "End-to-end", note: "From model design to production deployment" },
     { label: "Quality-first", note: "Evaluation & monitoring built in, not bolted on" },
-    { label: "Toronto", note: "Based in Canada, working with teams across North America" },
+    {
+      label: "Two offices",
+      note: "Toronto and Lucknow, working with teams across North America and India",
+    },
   ],
 };
 
+/** The sectors the real engagements actually sit in. Four, not a padded five. */
 export const SECTORS = [
-  "Manufacturing & Industrial",
-  "Financial Services",
-  "Logistics & Supply Chain",
-  "SaaS & Software",
-  "Retail & E-commerce",
+  "Public Infrastructure",
+  "Government & Civic Services",
+  "Legal Technology",
+  "Judicial Administration",
 ];
 
 /** The four services. Deliberately unnumbered — they are not a sequence. */
@@ -131,40 +135,47 @@ export const PRINCIPLES = [
 ];
 
 export const NDA_NOTE =
-  "Client names are withheld under NDA; the technical detail below is representative of the actual work. Ask us directly for references from comparable engagements.";
+  "Client names and locations are withheld. These are real delivered engagements, and the technical detail is accurate — we're happy to walk through any of them in depth, and to arrange references.";
 
+/**
+ * Real engagements. Clients are never named, and nothing here is padded:
+ * figures are the ones we can actually stand behind, and where a method comes
+ * from published research it is credited rather than implied to be ours.
+ */
 export const WORK = [
   {
-    sector: "Manufacturing",
-    title: "Automated visual quality inspection",
-    body: "A mid-size manufacturer was relying on manual sampling to catch defects on a production line — slow, inconsistent, and unable to scale with volume. We built a computer vision inspection pipeline trained on their historical defect data, paired with a labeled evaluation set so the plant team could validate accuracy before rollout, and a monitoring dashboard to flag drift as line conditions changed.",
-    focus: "Computer vision, MLOps, monitoring",
-    engagement: "Prototype through production deployment",
-    outcome: "Faster, more consistent inspection coverage; drift alerts in place before full rollout",
+    sector: "Public Infrastructure",
+    title: "Crowdsensed road surface monitoring at state scale",
+    body: "A road network of roughly 589,000 km was monitored by manual photo-and-GPS reports: weeks to action, inconsistent data, and no way to separate genuine defects from ordinary vibration. We built a crowdsensing pipeline that reads smartphone accelerometer, GPS and camera data as vehicles drive, classifies the road surface it is travelling on, and distinguishes potholes from speed bumps and driver handling — the false-positive problem that makes accelerometer-based detection unreliable in the field. Smartphone imagery serves as the source of truth, so the models are retrained against evidence rather than assumption.",
+    focus: "Deep learning (CNN, LSTM, reservoir computing), crowdsensing, computer vision",
+    engagement: "Our own venture — built, deployed and publicly hosted",
+    outcome: "93% accuracy on pothole and surface classification, with an imagery-backed retraining loop",
+    credit:
+      "Modelling approach follows published research on deep learning for road surface monitoring — Varona, Monteserin & Teyseyre, Personal and Ubiquitous Computing (2020).",
   },
   {
-    sector: "Financial Services",
-    title: "Evaluation harness for an internal risk model",
-    body: "A fintech risk team had a scoring model in production but no repeatable way to test proposed changes before shipping — reviews were manual and inconsistent. We designed an evaluation framework with fixed benchmark sets and regression checks, and integrated it into their existing release process.",
-    focus: "Model evaluation, release engineering",
-    engagement: "Embedded with internal ML team, 8 weeks",
-    outcome: "Repeatable pre-release testing; regressions caught before deploy",
+    sector: "Government & Civic Services",
+    title: "Civic infrastructure complaint and repair platform",
+    body: "A development authority tracked road repairs, footpaths, parking and waste hotspots through disconnected manual processes, with no shared view of what had been reported or resolved. We ran the feasibility study and wrote the SRS, then built a web and mobile platform with separate agency and administration dashboards: the full complaint lifecycle from report to resolution, categorisation by type and by responsible agency, configurable zones and sectors, and an audit log on every transaction so accountability survives a dispute.",
+    focus: "Systems analysis, full-stack platform, real-time reporting",
+    engagement: "Feasibility study, SRS, and build",
+    outcome: "Real-time complaint dashboards with agency-level accountability and a complete audit trail",
   },
   {
-    sector: "Logistics & Supply Chain",
-    title: "Demand forecasting pipeline rebuild",
-    body: "An existing forecasting model had accuracy that degraded silently over several months with no one noticing until planning was visibly off. We rebuilt the retraining pipeline with scheduled evaluation against holdout data, added alerting on forecast error, and documented the system for the internal team to maintain going forward.",
-    focus: "MLOps, forecasting, monitoring",
-    engagement: "Full rebuild and handoff",
-    outcome: "Automated retraining with error alerting; internal team fully onboarded",
+    sector: "Legal Technology",
+    title: "Resilient extraction pipeline for public court records",
+    body: "A records pipeline against a public high-court portal kept breaking. It was built on absolute XPaths that failed the moment the page shifted, and — the more serious fault — it reported success it had never verified, so silent failures were indistinguishable from clean runs. We rebuilt it on ID- and content-based selectors, and moved success detection next to the operation performing it, so no step can report done without positive confirmation. One year's cohort produced around 150 structured case tables and 157 judgment documents, each retrieval checked rather than assumed.",
+    focus: "Data engineering, failure detection, structured extraction",
+    engagement: "Rebuild and hardening of an existing pipeline",
+    outcome: "Verified retrieval in place of assumed success; silent failures made visible",
   },
   {
-    sector: "SaaS & Software",
-    title: "Applied AI feasibility audit",
-    body: "A software company was under pressure to “add AI” to their product but hadn't validated whether their data supported it. We ran a focused audit of their data quality, use cases, and technical constraints, and delivered a prioritized recommendation — including which proposed features weren't worth building yet.",
-    focus: "Applied AI strategy, data readiness",
-    engagement: "3-week audit and roadmap",
-    outcome: "Clear build/don't-build recommendation and a scoped roadmap for what remained",
+    sector: "Judicial Administration",
+    title: "Court case notification and reporting system",
+    body: "A court administration tracked hearings, orders and case status across spreadsheets and paper, which made it slow to answer two basic questions: what is listed today, and where does this case actually stand. We built an operator system covering the full case lifecycle — registration, order details, current status and final disposal — with hearing-wise listings, filtered search across the case register, and direct access to judgments and orders, so notifications of hearings, filings and deadlines are issued from the same record everyone works from.",
+    focus: "Workflow design, full-stack application, reporting",
+    engagement: "Design through delivery",
+    outcome: "A single case register with hearing-wise listings and status visible to operators and administration",
   },
 ];
 

@@ -34,6 +34,12 @@ export default function ContactPage() {
                 Reach out directly and include a short description of the project — we read every
                 message ourselves.
               </p>
+              <a
+                href={`mailto:${FIRM.email}`}
+                className="measure-link tabular mt-3 inline-block text-sm text-signal"
+              >
+                {FIRM.email}
+              </a>
             </div>
 
             <div className="border-t border-rule pt-6">
