@@ -1,36 +1,69 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Qualiteknik
 
-## Getting Started
+Marketing site for Qualiteknik Inc. — an AI/ML engineering consultancy based in
+Toronto and Lucknow.
 
-First, run the development server:
+Live: https://qualiteknik.vercel.app
+
+## Stack
+
+Next.js 16 (App Router, Turbopack) · React 19 · Tailwind CSS v4 · TypeScript.
+All routes are statically prerendered; there is no server runtime.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev      # http://localhost:3000
+npm run build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Where things live
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Path | What it holds |
+|---|---|
+| `lib/content.ts` | Every word on the site. Edit copy here, never in a component. |
+| `lib/paperFigures.ts` | Published evaluation data for the road-monitoring case study. |
+| `components/ControlChart.tsx` | The hero: a live control chart, canvas. |
+| `components/RoadSensing.tsx` | Wheel-over-road wireframe with 3-axis accelerometer traces. |
+| `components/PaperFigures.tsx` | Accuracy bars, confusion matrix, per-class F-measure. |
+| `app/globals.css` | Design tokens and the shared "instrument" vocabulary. |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Design system
 
-## Learn More
+The site is dressed as a calibration report rather than an AI landing page:
+warm paper, ink, hairline rules, tabular figures, and a single measured red
+that means *signal*. No gradients. Instrument Serif for display, Public Sans
+for body, JetBrains Mono for every figure and label.
 
-To learn more about Next.js, take a look at the following resources:
+Two rules worth knowing before editing CSS:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Colours are defined as tokens on bare `:root`, then redefined for dark under
+  both `prefers-color-scheme` and `[data-theme="dark"]`. Never give a colour
+  its only definition inside a media query.
+- Base resets live inside `@layer base`. An unlayered rule outranks every
+  layered one regardless of specificity, which silently defeats Tailwind's
+  `text-*` utilities on links.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Canvas components
 
-## Deploy on Vercel
+`ControlChart` and `RoadSensing` both:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- time with `performance.now()`, never assuming `requestAnimationFrame` has
+  been running (it is suspended in background tabs);
+- paint one correct frame before starting the loop, so a hidden tab still
+  renders something real;
+- re-read their palette on a `prefers-color-scheme` change *and* on a
+  `[data-theme]` mutation, since the latter fires no media query;
+- fall back to a static settled frame under `prefers-reduced-motion`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Evaluation data
+
+The figures in the road-monitoring case study reproduce published results from
+Varona, Monteserin & Teyseyre, *Personal and Ubiquitous Computing* 24:519–534
+(2020) — the research the project's method follows. The numbers are
+transcribed verbatim and credited on the page. They are not Qualiteknik's own
+measurements and must not be presented as such.
+
+## Deploys
+
+Pushing to `master` deploys to production via the Vercel Git integration.
+Tags mark reviewed states (`v1-metrology` → …).
