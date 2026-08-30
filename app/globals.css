@@ -1,0 +1,212 @@
+@import "tailwindcss";
+
+/*
+  Qualiteknik — a metrology aesthetic, not an "AI" one.
+
+  The firm's whole argument is that the unglamorous part (evaluation,
+  monitoring, tolerance) is the actual job. So the page is dressed as a
+  calibration report: warm paper, ink, hairline rules, tabular figures, and a
+  single measured red that means "this is the signal". No gradients, no glow.
+*/
+
+:root {
+  /* LIGHT — the default. Warm paper, as a printed report would be. */
+  --paper: #f3f1ec;
+  --paper-raised: #eae7e0;
+  --paper-deep: #e0dcd3;
+  --ink: #15171b;
+  --ink-soft: #565b64;
+  --ink-faint: #8d929a;
+  --rule: rgba(21, 23, 27, 0.14);
+  --rule-strong: rgba(21, 23, 27, 0.32);
+
+  /* the one accent: a measured red-orange. It marks the signal, nothing else. */
+  --signal: #b8371c;
+  --signal-soft: rgba(184, 55, 28, 0.1);
+
+  --font-display: var(--font-instrument), Georgia, "Times New Roman", serif;
+  --font-body: var(--font-public), system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+/* System-dark. Guarded so an explicit light choice still wins. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0f1114;
+    --paper-raised: #16191d;
+    --paper-deep: #1d2026;
+    --ink: #ecebe6;
+    --ink-soft: #9aa0a8;
+    --ink-faint: #6a7079;
+    --rule: rgba(236, 235, 230, 0.15);
+    --rule-strong: rgba(236, 235, 230, 0.34);
+    --signal: #e2593a;
+    --signal-soft: rgba(226, 89, 58, 0.14);
+  }
+}
+
+/* Explicit dark, so a toggle beats a light OS too. */
+:root[data-theme="dark"] {
+  --paper: #0f1114;
+  --paper-raised: #16191d;
+  --paper-deep: #1d2026;
+  --ink: #ecebe6;
+  --ink-soft: #9aa0a8;
+  --ink-faint: #6a7079;
+  --rule: rgba(236, 235, 230, 0.15);
+  --rule-strong: rgba(236, 235, 230, 0.34);
+  --signal: #e2593a;
+  --signal-soft: rgba(226, 89, 58, 0.14);
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-paper-raised: var(--paper-raised);
+  --color-paper-deep: var(--paper-deep);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-faint: var(--ink-faint);
+  --color-rule: var(--rule);
+  --color-signal: var(--signal);
+
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+  --font-mono: var(--font-mono);
+}
+
+/*
+  Layered on purpose: an unlayered rule outranks every layered one regardless
+  of specificity, which silently defeats Tailwind's text-* utilities on links.
+*/
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
+  }
+
+  a {
+    color: inherit;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    text-wrap: balance;
+    letter-spacing: -0.015em;
+  }
+
+  ::selection {
+    background: var(--signal);
+    color: var(--paper);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--signal);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+/* ---- instrument vocabulary ------------------------------------------- */
+
+/* The small mono readout used for eyebrows, field names and figures. */
+.readout {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Any figure that could line up in a column does. */
+.tabular {
+  font-variant-numeric: tabular-nums;
+  font-family: var(--font-mono);
+}
+
+/*
+  The measurement grid. Ruled paper drawn with gradients rather than an image,
+  so it costs nothing and follows the theme.
+*/
+.grid-paper {
+  background-image:
+    linear-gradient(to right, var(--rule) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--rule) 1px, transparent 1px);
+  background-size: 96px 96px;
+  opacity: 0.5;
+}
+
+/* A tick-marked rule, like the edge of a scale. */
+.tick-rule {
+  background-image: repeating-linear-gradient(
+    to right,
+    var(--rule-strong) 0 1px,
+    transparent 1px 12px
+  );
+  height: 6px;
+}
+
+/*
+  Underline that draws itself left to right on hover — a measurement being
+  taken, rather than a decorative swipe.
+*/
+.measure-link {
+  position: relative;
+  display: inline-block;
+}
+
+.measure-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  height: 1px;
+  width: 100%;
+  background: var(--signal);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 400ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.measure-link:hover::after,
+.measure-link:focus-visible::after {
+  transform: scaleX(1);
+}
+
+@keyframes riseIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.rise {
+  animation: riseIn 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise {
+    animation: none;
+  }
+  .measure-link::after {
+    transition: none;
+  }
+}
