@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ClosingCta, PageHead } from "@/components/Bits";
+import { PaperFigures } from "@/components/PaperFigures";
 import { NDA_NOTE, WORK } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -35,7 +36,10 @@ export default function WorkPage() {
                     </h2>
                   </div>
 
-                  <div>
+                  {/* min-w-0: grid items default to min-width:auto, so the wide
+                      confusion matrix below would otherwise force this column
+                      past the viewport and scroll the whole page sideways. */}
+                  <div className="min-w-0">
                     <p className="max-w-2xl text-base leading-relaxed text-ink-soft">{w.body}</p>
 
                     {/* Where a method comes from published research, credit it —
@@ -59,6 +63,12 @@ export default function WorkPage() {
                         </div>
                       ))}
                     </dl>
+
+                    {/* The deep-learning engagement carries its evaluation in
+                        full. It is the one project where the numbers are
+                        published, so hiding them behind a headline figure would
+                        waste the strongest thing we can show. */}
+                    {w.sector === "Public Infrastructure" && <PaperFigures />}
                   </div>
                 </article>
               </li>
