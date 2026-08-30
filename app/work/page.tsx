@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ClosingCta, PageHead } from "@/components/Bits";
 import { PaperFigures } from "@/components/PaperFigures";
+import { RoadSensing } from "@/components/RoadSensing";
 import { NDA_NOTE, WORK } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -68,7 +69,15 @@ export default function WorkPage() {
                         full. It is the one project where the numbers are
                         published, so hiding them behind a headline figure would
                         waste the strongest thing we can show. */}
-                    {w.sector === "Public Infrastructure" && <PaperFigures />}
+                    {w.sector === "Public Infrastructure" && (
+                      <>
+                        {/* Capture first, then classification, then evaluation —
+                            the panels below say what the model concludes, this
+                            says what it is looking at. */}
+                        <RoadSensing />
+                        <PaperFigures />
+                      </>
+                    )}
                   </div>
                 </article>
               </li>
