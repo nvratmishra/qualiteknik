@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ClosingCta, Eyebrow, PageHead } from "@/components/Bits";
+import { Logo } from "@/components/Logo";
 import { PRINCIPLES } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -33,9 +34,22 @@ export default function AboutPage() {
                 how a system will be tested and operated, not just how it will be built.
               </p>
 
+              {/* The mark at display size, beside the theorem it draws: a
+                  polygon approximating a circle, with one vertex out of
+                  tolerance. It explains itself here better than a caption could. */}
+              <div className="mt-12 flex flex-wrap items-center gap-8">
+                <Logo className="h-[220px] w-[220px] shrink-0 text-ink" detailed />
+                <p className="max-w-xs text-sm leading-relaxed text-ink-soft">
+                  A regular form approximating a circle, with a neuron at every vertex — what a
+                  piecewise-linear network actually draws. The dashed ring is the target
+                  function; the outer one is the control limit. One vertex breaks through it and
+                  returns.
+                </p>
+              </div>
+
               {/* The theorem is the sharpest statement of the gap this firm
                   exists to close, so it is quoted rather than alluded to. */}
-              <blockquote className="mt-9 border-l-2 border-signal py-1 pl-6">
+              <blockquote className="mt-12 border-l-2 border-signal py-1 pl-6">
                 <p className="text-lg leading-relaxed text-ink">
                   The universal approximation theorem proves that a network with a single
                   hidden layer can approximate any continuous function to arbitrary accuracy.
