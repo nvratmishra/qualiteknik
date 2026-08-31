@@ -43,6 +43,16 @@ export default function ContactPage() {
             </div>
 
             <div className="border-t border-rule pt-6">
+              <Eyebrow>By Phone</Eyebrow>
+              <a
+                href={`tel:${FIRM.phone.replace(/\s+/g, "")}`}
+                className="measure-link tabular mt-4 inline-block text-sm text-signal"
+              >
+                {FIRM.phone}
+              </a>
+            </div>
+
+            <div className="border-t border-rule pt-6">
               <Eyebrow>Where We Are</Eyebrow>
               <p className="mt-4 text-sm text-ink">{FIRM.city}</p>
               <p className="mt-2 text-sm leading-relaxed text-ink-soft">{FIRM.reach}</p>

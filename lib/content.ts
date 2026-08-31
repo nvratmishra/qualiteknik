@@ -13,7 +13,9 @@ export const FIRM = {
   city: "Toronto, Canada · Lucknow, India",
   reach: "We work with teams across North America and India, in person and remote.",
   replyTime: "We typically respond within two business days.",
-  email: "info@qualiteknik.online",
+  /** Where the contact form and every published link deliver. */
+  email: "anuvrat.mishra@qualiteknik.online",
+  phone: "+1 236 877 1754",
 } as const;
 
 export const NAV = [
@@ -148,8 +150,9 @@ export const WORK = [
     title: "Crowdsensed road surface monitoring at state scale",
     body: "A road network of roughly 589,000 km was monitored by manual photo-and-GPS reports: weeks to action, inconsistent data, and no way to separate genuine defects from ordinary vibration. We built a crowdsensing pipeline that reads smartphone accelerometer, GPS and camera data as vehicles drive, classifies the road surface it is travelling on, and distinguishes potholes from speed bumps and driver handling — the false-positive problem that makes accelerometer-based detection unreliable in the field. Smartphone imagery serves as the source of truth, so the models are retrained against evidence rather than assumption.",
     focus: "Deep learning (CNN, LSTM, reservoir computing), crowdsensing, computer vision",
-    engagement: "Our own venture — built, deployed and publicly hosted",
+    engagement: "Proof of concept and MVP — a PWA, live at machinelearnspothole.site",
     outcome: "93% accuracy on pothole and surface classification, with an imagery-backed retraining loop",
+    live: { label: "machinelearnspothole.site", href: "https://machinelearnspothole.site" },
     credit:
       "Modelling approach follows published research on deep learning for road surface monitoring — Varona, Monteserin & Teyseyre, Personal and Ubiquitous Computing (2020).",
   },

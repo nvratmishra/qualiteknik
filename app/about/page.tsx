@@ -32,6 +32,21 @@ export default function AboutPage() {
                 We treat that gap as the actual job. It&rsquo;s why our services always include
                 how a system will be tested and operated, not just how it will be built.
               </p>
+
+              {/* The theorem is the sharpest statement of the gap this firm
+                  exists to close, so it is quoted rather than alluded to. */}
+              <blockquote className="mt-9 border-l-2 border-signal py-1 pl-6">
+                <p className="text-lg leading-relaxed text-ink">
+                  The universal approximation theorem proves that a network with a single
+                  hidden layer can approximate any continuous function to arbitrary accuracy.
+                </p>
+                <p className="mt-4 leading-relaxed text-ink-soft">
+                  It does not say you will find that network. Or that your data supports it. Or
+                  that it still holds next quarter. The distance between what is provably
+                  possible and what actually ships is measured, not assumed — and that
+                  measurement is the work.
+                </p>
+              </blockquote>
             </div>
 
             <div>

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { NAV, FIRM } from "@/lib/content";
+import { Logo } from "@/components/Logo";
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
@@ -12,14 +13,13 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-rule bg-paper/85 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <Link
-          href="/"
-          onClick={() => setOpen(false)}
-          className="group flex items-baseline gap-2"
-        >
-          <span className="font-display text-lg tracking-tight">{FIRM.name}</span>
-          <span className="readout text-ink-faint transition-colors group-hover:text-signal">
-            QA/ML
+        <Link href="/" onClick={() => setOpen(false)} className="group flex items-center gap-3">
+          <Logo className="h-8 w-8 shrink-0 text-ink" />
+          <span className="flex items-baseline gap-2">
+            <span className="font-display text-lg tracking-tight">{FIRM.name}</span>
+            <span className="readout text-ink-faint transition-colors group-hover:text-signal">
+              QA/ML
+            </span>
           </span>
         </Link>
 

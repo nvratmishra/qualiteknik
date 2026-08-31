@@ -1,27 +1,49 @@
 "use client";
 
 import { useState } from "react";
-import { PROJECT_STAGES } from "@/lib/content";
+import { FIRM, PROJECT_STAGES } from "@/lib/content";
 
 const field =
   "w-full border border-rule bg-paper px-3.5 py-2.5 text-sm text-ink outline-none transition-colors duration-200 placeholder:text-ink-faint focus:border-signal";
 
 /**
- * No backend is wired up yet, so the form is honest about that rather than
- * pretending to send. Swapping in a real endpoint is a one-line change in
- * onSubmit — don't leave a fake success state in the meantime.
+ * The form composes the enquiry and hands it to the sender's own mail client.
+ *
+ * There is no server here — the site is fully static — and a static site cannot
+ * send mail without either a third-party form service or SMTP credentials. This
+ * route delivers a real, complete message to FIRM.email with no backend and no
+ * secrets, and it never claims to have sent something it hasn't.
+ *
+ * To move to server-side submission later, POST these fields to a route handler
+ * or a form service instead; the field names below are already the payload.
  */
 export function ContactForm() {
   const [sent, setSent] = useState(false);
 
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const f = new FormData(e.currentTarget);
+    const get = (k: string) => String(f.get(k) ?? "").trim();
+
+    const subject = `Project enquiry — ${get("name") || "new enquiry"}`;
+    const body = [
+      `Name:    ${get("name")}`,
+      `Email:   ${get("email")}`,
+      `Company: ${get("company") || "—"}`,
+      `Stage:   ${get("stage") || "—"}`,
+      "",
+      "What they're building:",
+      get("detail") || "—",
+    ].join("\n");
+
+    window.location.href = `mailto:${FIRM.email}?subject=${encodeURIComponent(
+      subject,
+    )}&body=${encodeURIComponent(body)}`;
+    setSent(true);
+  }
+
   return (
-    <form
-      className="max-w-xl"
-      onSubmit={(e) => {
-        e.preventDefault();
-        setSent(true);
-      }}
-    >
+    <form className="max-w-xl" onSubmit={handleSubmit}>
       <div className="grid gap-5 sm:grid-cols-2">
         <label className="block">
           <span className="readout text-ink-faint">Name</span>
@@ -73,8 +95,12 @@ export function ContactForm() {
 
       {sent && (
         <p className="mt-5 border-l-2 border-signal py-1 pl-4 text-sm leading-relaxed text-ink-soft">
-          This form isn&rsquo;t connected to a mail service yet, so nothing was sent. Email the
-          team directly in the meantime.
+          Your email client should have opened with the enquiry ready to send. If it
+          didn&rsquo;t, write to{" "}
+          <a href={`mailto:${FIRM.email}`} className="measure-link text-signal">
+            {FIRM.email}
+          </a>{" "}
+          directly.
         </p>
       )}
     </form>

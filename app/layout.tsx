@@ -3,6 +3,7 @@ import { Instrument_Serif, Public_Sans, JetBrains_Mono } from "next/font/google"
 import "./globals.css";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
+import { ConsoleEgg } from "@/components/ConsoleEgg";
 
 /*
   Instrument Serif against JetBrains Mono: an editorial display face for the
@@ -45,6 +46,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${instrument.variable} ${publicSans.variable} ${jetbrains.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
+        <ConsoleEgg />
         <SiteHeader />
         {children}
         <SiteFooter />

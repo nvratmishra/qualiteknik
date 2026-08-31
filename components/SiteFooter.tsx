@@ -50,6 +50,18 @@ export function SiteFooter() {
             >
               Contact Us
             </Link>
+            <a
+              href={`mailto:${FIRM.email}`}
+              className="measure-link mt-2.5 block text-sm text-ink-soft hover:text-ink"
+            >
+              {FIRM.email}
+            </a>
+            <a
+              href={`tel:${FIRM.phone.replace(/\s+/g, "")}`}
+              className="measure-link tabular mt-2.5 block text-sm text-ink-soft hover:text-ink"
+            >
+              {FIRM.phone}
+            </a>
             <p className="mt-6 text-sm text-ink-faint">{FIRM.city}</p>
           </div>
         </div>

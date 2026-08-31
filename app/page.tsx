@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ControlChart } from "@/components/ControlChart";
+import { PotholeFeature } from "@/components/PotholeFeature";
 import { ClosingCta, Eyebrow, GhostLink, PrimaryLink } from "@/components/Bits";
 import { DIFFERENTIATORS, HERO, SECTORS, SERVICES, WORK } from "@/lib/content";
 
@@ -40,6 +41,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <PotholeFeature />
 
       {/* Three pillars, as an instrument panel */}
       <section className="border-b border-rule">
