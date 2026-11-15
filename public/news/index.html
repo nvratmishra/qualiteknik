@@ -4,7 +4,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>News Lens</title>
-<meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=DM+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&display=swap">
@@ -862,7 +861,7 @@ function home(){
     <p class="fine">Each story compared across the world's press. The bar shows who owns the outlets that covered it. Bigger circle, more articles from that country.</p>
     <div id="list">${slips(q || regionPick ? STORIES.filter(matches) : rest)}</div></section>
   <footer class="about">
-    <p>How it works: articles from ${OUTLETS} outlets around the world are grouped into stories by the words they share. An AI model (Claude) compares how they covered each story, using only their headlines and summaries. Every quoted phrase is checked against the article it cites, and every outlet named is checked too; anything flagged is rewritten or held back.</p>
+    <p>How it works: articles from ${OUTLETS} outlets around the world are grouped into stories by the words they share. An AI model compares how they covered each story, using only their headlines and summaries. Every quoted phrase is checked against the article it cites, and every outlet named is checked too; anything flagged is rewritten or held back.</p>
     <p>The game picks headlines containing a phrase the comparison quoted, from three countries, copied exactly from each outlet's news feed. Stories about deaths are never turned into rounds.</p>
     <p>Ed is a made-up character. His reactions are stock lines. His one remark per round about the headlines was written by an AI model, and every phrase he quotes is checked against the headlines shown. He teases the wording and the player, never the people in the news.</p>
     <p>Ownership and lean labels are early and may change. Headlines belong to their publishers; tap one to read the original. RT and TASS are Russian state media under sanctions in the EU and Canada. Their headlines are quoted here for comparison, labelled, and never linked.</p>
