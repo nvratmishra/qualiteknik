@@ -4,6 +4,7 @@ import "./globals.css";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { ConsoleEgg } from "@/components/ConsoleEgg";
+import { Analytics } from "@vercel/analytics/next";
 
 /*
   Instrument Serif against JetBrains Mono: an editorial display face for the
@@ -50,6 +51,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <SiteHeader />
         {children}
         <SiteFooter />
+        <Analytics />
       </body>
     </html>
   );
